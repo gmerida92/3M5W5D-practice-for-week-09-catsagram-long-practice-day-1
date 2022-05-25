@@ -81,6 +81,8 @@ export let createCommentSection = () => {
     commentBar.setAttribute('placeholder', 'Add a comment...')
     commentHead.innerText = 'Comment: ';
     commentsSection.style.border = '2px solid black'
+    commentsSection.style.width = '800px';
+    commentsSection.style.height = '400px';
 
     return {
         commentInput : commentInput,
