@@ -17,7 +17,7 @@ const changeCat = async () => {
 
 
 window.onload = () =>{
-// Phase 1
+    // Phase 1
     fetch('https://api.thecatapi.com/v1/images/search',{
         method:'GET',
         headers:{"x-api-key" : "{$$.env.x-api-key}"}
@@ -26,10 +26,19 @@ window.onload = () =>{
         let container = document.createElement('div');
         // container.style.height = '500px';
         // container.style.width = '500px';
-        let title = document.createElement('h1');
-        title.innerText = 'kitten pic';
-        container.appendChild(title);
 
+        function newElementToContainer(newElement, insideText) {
+            const element = document.createElement(newElement);
+            element.innerText = insideText;
+            container.appendChild(element);
+            return element
+        }
+
+        let title = newElementToContainer("h1", "Catstagram")
+        // let title = document.createElement('h1');
+        // title.innerText = 'kitten pic';
+        // container.appendChild(title);
+        
         let imgSrc = txt[0].url;
         let imgElement = document.createElement('img');
 
@@ -49,6 +58,7 @@ window.onload = () =>{
         let changeButton = document.createElement("button");
         changeButton.innerText = "New Cat"
         container.appendChild(changeButton);
+        
 
         const votes = {
             upvote: 0,
