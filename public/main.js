@@ -1,8 +1,13 @@
 export let createContainer = () =>{
-            let container = document.createElement('div');
+            let elements = createElements('div', 'h1');
+            let [container, title] = elements;
             container.classList.add('main');
-            let title = document.createElement('h1');
             title.innerText = 'kitten pic';
+
+            container.style.display = 'flex';
+            container.style.flexDirection = 'column'
+            container.style.alignItems = 'center'
+
             container.appendChild(title);
             document.body.appendChild(container);
 
@@ -18,17 +23,12 @@ export let fetchImage = async (imgTag) => {
 
 export let createImage = (container) => {
     let imgElement = document.createElement('img');
-    let select = document.querySelector('.main');
+    // let select = document.querySelector('.main');
 
     imgElement.classList.add('cat-img');
-
     imgElement.style.width = '500px'
     imgElement.style.height = '500px'
-
     container.appendChild(imgElement);
-    container.style.display = 'flex';
-    container.style.flexDirection = 'column'
-    container.style.alignItems = 'center'
 
     return imgElement;
 
