@@ -1,4 +1,4 @@
-const changeCat = async () => {
+const changeCat = async () => {3
     let fetched = await fetch('https://api.thecatapi.com/v1/images/search',{
         method:'GET',
         headers:{"x-api-key" : "{$$.env.x-api-key}"}
