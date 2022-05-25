@@ -24,6 +24,7 @@ window.onload = () =>{
         let commentSection = createCommentSection();
 
         let submitButton = commentSection.submitButton;
+        let commentBar = commentSectionl.commentBar;
 
         //TODO create an events.js and import event logic here.
         changeButton.addEventListener("click", event => {
