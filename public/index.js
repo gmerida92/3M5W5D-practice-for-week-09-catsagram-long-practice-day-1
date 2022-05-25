@@ -3,8 +3,9 @@ import { createContainer,
         createImage,
         createChangeButton,
         createPictureVoter,
-        createCommentSection
+        createCommentSection,
         } from "./main.js";
+import {changeCat, changeVote, submitComment} from './events.js';
 
 window.onload = () =>{
 // Phase 1
@@ -18,45 +19,30 @@ window.onload = () =>{
         let changeButton = createChangeButton();
 
         let picVote = createPictureVoter();
-
         let [picPop, upVoteButton, downVoteButton, votes] = picVote;
 
         let commentSection = createCommentSection();
-
         let submitButton = commentSection.submitButton;
         let commentBar = commentSection.commentBar;
         let commentList = commentSection.commentList;
 
-        //TODO create an events.js and import event logic here.
         changeButton.addEventListener("click", event => {
-            fetchImage(imageContainer);
-            votes.upvote = 0;
-            votes.downvote = 0;
-            picPop.innerText = `Popularity Score: ${votes.upvote - votes.downvote}`;
-            let list = document.querySelectorAll('li');
-            list.forEach(e => e.remove());
+            changeCat(imageContainer, picPop, votes);
             event.stopPropagation();
         });
 
         upVoteButton.addEventListener("click", event => {
-            votes.upvote++;
-            picPop.innerText = `Popularity Score: ${votes.upvote - votes.downvote}`;
+            changeVote(votes, picPop, 'up');
             event.preventDefault();
         })
 
         downVoteButton.addEventListener("click", event => {
-            votes.downvote++;
-            picPop.innerText = `Popularity Score: ${votes.upvote - votes.downvote}`;
+            changeVote(votes, picPop, 'down');
             event.preventDefault();
         })
 
-
         submitButton.addEventListener('click', e =>{
-            let newComment = document.createElement('li');
-            newComment.innerText = commentBar.value;
-
-            commentList.appendChild(newComment);
-            commentBar.value = '';
+            submitComment(commentList, commentBar);
             e.preventDefault();
 
         })
