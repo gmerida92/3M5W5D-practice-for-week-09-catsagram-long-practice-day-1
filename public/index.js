@@ -68,12 +68,55 @@ window.onload = () =>{
         container.appendChild(upvoteButton);
         container.appendChild(downvoteButton);
 
+        //* Comment section
+        let commentInput = document.createElement('div');
+
+        let commentHead = document.createElement('label');
+        let commentBar = document.createElement('input');
+        let submitButton = document.createElement('button');
+
+        submitButton.innerText = 'Submit';
+
+        // commentBar.setAttribute('type', 'text');
+        commentBar.dataset.type = 'text';
+        commentBar.setAttribute('placeholder', 'Add a comment...')
+
+
+        commentHead.innerText = 'Comment: ';
+
+        commentInput.appendChild(commentHead);
+        commentInput.appendChild(commentBar);
+        commentInput.appendChild(submitButton);
+
+        container.appendChild(commentInput);
+
+        let commentsSection = document.createElement('div');
+
+        let commentList = document.createElement('ul');
+
+        commentsSection.appendChild(commentList);
+
+        commentsSection.style.border = '2px solid black'
+
+        container.appendChild(commentsSection);
+
+
+
+        //* ----------------------------------------------------
+
         changeButton.addEventListener("click", event => {
             changeCat().then(res => imgElement.setAttribute("src", res));
             votes.upvote = 0;
             votes.downvote = 0;
             picPop.innerText = `Popularity Score: ${votes.upvote - votes.downvote}`;
+            let list = document.querySelectorAll('li');
+            list.forEach(e => e.remove());
+            // let listChildren = list.childNodes;
+            // console.log(Array.from(listChildren));
+
+
             // console.log(imgElement);
+            event.stopPropagation();
         });
 
         upvoteButton.addEventListener("click", event => {
@@ -89,7 +132,15 @@ window.onload = () =>{
         })
 
 
+        submitButton.addEventListener('click', e =>{
+            let newComment = document.createElement('li');
+            newComment.innerText = commentBar.value;
 
+            commentList.appendChild(newComment);
+            commentBar.value = '';
+            e.preventDefault();
+
+        })
 
     })
 
