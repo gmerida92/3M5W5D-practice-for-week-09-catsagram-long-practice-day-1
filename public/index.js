@@ -1,51 +1,58 @@
-import { createContainer,
-        fetchImage,
-        createImage,
-        createChangeButton,
-        createPictureVoter,
-        createCommentSection,
-        } from "./main.js";
-import {changeCat, changeVote, submitComment} from './events.js';
+import {
+    createContainer,
+    fetchImage,
+    createImage,
+    createChangeButton,
+    createPictureVoter,
+    createCommentSection,
+} from "./main.js";
+import { changeCat, changeVote, submitComment } from './events.js';
 
-window.onload = () =>{
-// Phase 1
+window.onload = () => {
+    // Phase 1
 
-        let container = createContainer();
+    // We need to save the image url to local storage
+    // We need value of votes to local storage
+    // We need to save the list of comments
 
-        let imageContainer = createImage(container);
+    // 
+    let commentTextArr = [];
+    let container = createContainer();
 
-        fetchImage(imageContainer);
+    let imageContainer = createImage(container);
 
-        let changeButton = createChangeButton();
+    fetchImage(imageContainer);
 
-        let picVote = createPictureVoter();
-        let [picPop, upVoteButton, downVoteButton, votes] = picVote;
+    let changeButton = createChangeButton();
 
-        let commentSection = createCommentSection();
-        let submitButton = commentSection.submitButton;
-        let commentBar = commentSection.commentBar;
-        let commentList = commentSection.commentList;
+    let picVote = createPictureVoter();
+    let [picPop, upVoteButton, downVoteButton, votes] = picVote;
 
-        changeButton.addEventListener("click", event => {
-            changeCat(imageContainer, picPop, votes);
-            event.stopPropagation();
-        });
+    let commentSection = createCommentSection();
+    let submitButton = commentSection.submitButton;
+    let commentBar = commentSection.commentBar;
+    let commentList = commentSection.commentList;
 
-        upVoteButton.addEventListener("click", event => {
-            changeVote(votes, picPop, 'up');
-            event.preventDefault();
-        })
+    changeButton.addEventListener("click", event => {
+        changeCat(imageContainer, picPop, votes);
+        event.stopPropagation();
+    });
 
-        downVoteButton.addEventListener("click", event => {
-            changeVote(votes, picPop, 'down');
-            event.preventDefault();
-        })
+    upVoteButton.addEventListener("click", event => {
+        changeVote(votes, picPop, 'up');
+        event.preventDefault();
+    })
 
-        submitButton.addEventListener('click', e =>{
-            submitComment(commentList, commentBar);
-            e.preventDefault();
+    downVoteButton.addEventListener("click", event => {
+        changeVote(votes, picPop, 'down');
+        event.preventDefault();
+    })
 
-        })
+    submitButton.addEventListener('click', e => {
+        submitComment(commentList, commentBar, commentTextArr);
+        e.preventDefault();
+
+    })
 
 
 

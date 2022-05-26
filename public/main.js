@@ -18,7 +18,14 @@ export let fetchImage = async (imgTag) => {
     let fetched = await fetch('https://api.thecatapi.com/v1/images/search');
     let body = await fetched.json();
     let url = body[0].url;
-    imgTag.setAttribute('src', url);
+    
+    if(localStorage.getItem("url")){
+        imgTag.setAttribute('src', localStorage.getItem("url"))
+    }else{
+        localStorage.setItem("url", url);
+        imgTag.setAttribute('src', url);
+    }
+
 }
 
 export let createImage = (container) => {
@@ -45,22 +52,30 @@ export let createChangeButton = () =>{
 }
 
 export let createPictureVoter = () =>{
-    const votes = {
-        upvote: 0,
-        downvote: 0,
-    }
     let elements = createElements('div', 'button', 'button');
     let [picPop, upvoteButton, downvoteButton] = elements;
     let container = document.querySelector('.main');
+    let res =[picPop, upvoteButton, downvoteButton];
+    if(localStorage.getItem("votes")){
+        const votes = JSON.parse(localStorage.getItem("votes"));
+        console.log(votes)
+        picPop.innerText = `Popularity Score: ${votes.upvote - votes.downvote}`;
+        res.push(votes);
+    }else{
+        const votes = {
+            upvote: 0,
+            downvote: 0,
+        }
+        picPop.innerText = `Popularity Score: ${votes.upvote - votes.downvote}`;
+        res.push(votes);
+    }
 
-    picPop.innerText = `Popularity Score: ${votes.upvote - votes.downvote}`;
+
 
     upvoteButton.innerText = "Upvote";
     downvoteButton.innerText = "Downvote"
 
     appendChildren(container, picPop, upvoteButton, downvoteButton);
-
-    let res = [picPop, upvoteButton, downvoteButton, votes];
 
     return res;
 }
@@ -68,6 +83,7 @@ export let createPictureVoter = () =>{
 export let createCommentSection = () => {
 
     let elements = createElements('div', 'label', 'input', 'button', 'div', 'ul',);
+    
     let [commentInput, commentHead, commentBar, submitButton, commentsSection, commentList] = elements;
     let container = document.querySelector('.main');
 
@@ -83,6 +99,16 @@ export let createCommentSection = () => {
     commentsSection.style.border = '2px solid black'
     commentsSection.style.width = '800px';
     commentsSection.style.height = '400px';
+
+    if(localStorage.getItem("comments")){
+        let comments = JSON.parse(localStorage.getItem("comments"));
+
+        comments.forEach(el => {
+            let li = document.createElement('li');
+            li.innerText= el;
+            commentList.appendChild(li);
+        })
+    }
 
     return {
         commentInput : commentInput,
