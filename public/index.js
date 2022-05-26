@@ -10,8 +10,6 @@ const changeCat = async () => {
 
     let url = body[0].url;
 
-    // console.log(url)
-
     return url;
 }
 
@@ -34,7 +32,7 @@ window.onload = () =>{
             return element
         }
 
-        let title = newElementToContainer("h1", "Catstagram")
+        let title = newElementToContainer("h1", "Catstagram");
         // let title = document.createElement('h1');
         // title.innerText = 'kitten pic';
         // container.appendChild(title);
