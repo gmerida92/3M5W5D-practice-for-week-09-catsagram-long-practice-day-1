@@ -1,17 +1,17 @@
 export let createContainer = () =>{
-            let elements = createElements('div', 'h1');
-            let [container, title] = elements;
-            container.classList.add('main');
-            title.innerText = 'kitten pic';
+    let elements = createElements('div', 'h1');
+    let [container, title] = elements;
+    container.classList.add('main');
+    title.innerText = 'kitten pic';
 
-            container.style.display = 'flex';
-            container.style.flexDirection = 'column'
-            container.style.alignItems = 'center'
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column'
+    container.style.alignItems = 'center'
 
-            container.appendChild(title);
-            document.body.appendChild(container);
+    container.appendChild(title);
+    document.body.appendChild(container);
 
-            return container
+    return container
 }
 
 export let fetchImage = async (imgTag) => {
